@@ -1,9 +1,14 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:restart_app/restart_app.dart';
 import 'bottom_bar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
+
+  void _refreshApp(BuildContext context) {
+    Restart.restartApp();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +22,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(
                   child: Image(
-                    image: AssetImage(
-                      'images/wifi_not_connected.png',
-                    ),
+                    image: AssetImage('images/wifi_not_connected.png'),
                     width: 200,
                   ),
                   margin: EdgeInsets.only(bottom: 15),
@@ -40,6 +43,16 @@ class HomePage extends StatelessWidget {
                     onPressed: () {
                       AppSettings.openWIFISettings();
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 71, 181, 255),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  child: ElevatedButton(
+                    child: Text('Refresh'),
+                    onPressed: () => _refreshApp(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 71, 181, 255),
                     ),

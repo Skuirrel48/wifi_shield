@@ -22,7 +22,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         Navigator.of(context).pushNamed('/home');
         break;
       case 1:
-        Navigator.of(context).pushNamed('/settings');
+        Navigator.of(context).pushNamed('/wifi-info');
         break;
       case 2:
         Navigator.of(context).pushNamed('/settings');

@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 
 import 'bottom_bar.dart';
 
-class WifiInfo extends StatefulWidget {
-  const WifiInfo({Key? key}) : super(key: key);
+class HomePageWithWiFi extends StatefulWidget {
+  const HomePageWithWiFi({Key? key}) : super(key: key);
 
   @override
-  _WifiInfoState createState() => _WifiInfoState();
+  _HomePageWithWiFiState createState() => _HomePageWithWiFiState();
 }
 
-class _WifiInfoState extends State<WifiInfo> {
+class _HomePageWithWiFiState extends State<HomePageWithWiFi> {
   late Future<String?> _wifiName;
   late Future<String?> _wifiBSSID;
   late Future<String?> _wifiIP;
-  late Future<String?> _wifiSubmask;
-  late Future<String?> _wifiGatewayIP;
 
   @override
   void initState() {
@@ -28,8 +26,6 @@ class _WifiInfoState extends State<WifiInfo> {
     _wifiName = networkInfo.getWifiName();
     _wifiBSSID = networkInfo.getWifiBSSID();
     _wifiIP = networkInfo.getWifiIP();
-    _wifiSubmask = networkInfo.getWifiSubmask();
-    _wifiGatewayIP = networkInfo.getWifiGatewayIP();
   }
 
   @override
@@ -70,7 +66,7 @@ class _WifiInfoState extends State<WifiInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Wi-Fi Network Information',
+                        'Connected to ',
                         style: TextStyle(
                           fontSize: 24,
                           color: Colors.white,
@@ -129,35 +125,9 @@ class _WifiInfoState extends State<WifiInfo> {
                           }
                         },
                       ),
-                      SizedBox(height: 30),
-                      FutureBuilder<String?>(
-                        future: _wifiSubmask,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String?> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text(
-                              'Error: ${snapshot.error}',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            );
-                          } else {
-                            final wifiSubmask = snapshot.data;
-                            return Text(
-                              'Netmask: ${wifiSubmask ?? ''}',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            );
-                          }
-                        },
-                      ),
                       SizedBox(height: 8),
                       FutureBuilder<String?>(
-                        future: _wifiGatewayIP,
+                        future: _wifiIP,
                         builder: (BuildContext context,
                             AsyncSnapshot<String?> snapshot) {
                           if (snapshot.connectionState ==
@@ -171,9 +141,9 @@ class _WifiInfoState extends State<WifiInfo> {
                               ),
                             );
                           } else {
-                            final wifiGatewayIP = snapshot.data;
+                            final wifiIP = snapshot.data;
                             return Text(
-                              'Gateway: ${wifiGatewayIP ?? ''}',
+                              'IP Address: ${wifiIP ?? ''}',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -190,47 +160,10 @@ class _WifiInfoState extends State<WifiInfo> {
                   indent: 45,
                   endIndent: 45,
                 ),
-                Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(223, 246, 255, 0.19),
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Devices Information',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        '<> online devices',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        '<> offline',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    // child: /* Add your content for the second row here */,
                   ),
                 ),
               ],

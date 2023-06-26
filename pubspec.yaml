@@ -20,6 +20,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.19.4 <3.0.0"
+  # sdk: ">=2.19.4"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,6 +38,8 @@ dependencies:
   wifi_iot: ^0.3.18
   font_awesome_flutter: ^10.4.0
   connectivity_plus: ^4.0.1
+  network_info_plus: ^4.0.1
+  restart_app: ^1.2.1
 
 dev_dependencies:
   flutter_test:
