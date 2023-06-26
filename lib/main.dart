@@ -1,7 +1,9 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
-import 'settings.dart';
-import 'bottom_bar.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:app_settings/app_settings.dart';
+
+import 'screens/settings.screen.dart';
+import 'screens/homepage.screens.dart';
 
 void main() => runApp(const WiFiShieldApp());
 
@@ -12,7 +14,29 @@ class WiFiShieldApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "WiFiShieldApp",
-      home: const HomePage(),
+      home: Scaffold(
+        body: FutureBuilder<bool>(
+          future: _checkWiFiConnection(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            } else {
+              final bool isConnectedToWiFi = snapshot.data ?? false;
+              if (isConnectedToWiFi) {
+                return const HomePageWithWiFi();
+              } else {
+                return const HomePageWithoutWiFi();
+              }
+            }
+          },
+        ),
+      ),
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 6, 40, 61),
       ),
@@ -23,59 +47,54 @@ class WiFiShieldApp extends StatelessWidget {
       },
     );
   }
+
+  Future<bool> _checkWiFiConnection() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult == ConnectivityResult.wifi;
+  }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePageWithWiFi extends StatelessWidget {
+  const HomePageWithWiFi({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Row(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Image(
-                    image: AssetImage(
-                      'images/wifi_not_connected.png',
-                    ),
-                    width: 200,
-                  ),
-                  margin: EdgeInsets.only(bottom: 15),
-                ),
-                Container(
-                  child: Text(
-                    'Please connect to a network',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                  margin: EdgeInsets.only(bottom: 10),
-                ),
-                Container(
-                  child: ElevatedButton(
-                    child: Text('Open Wi-Fi Settings'),
-                    onPressed: () {
-                      AppSettings.openWIFISettings();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 71, 181, 255),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          Text(
+            'WiFi Brief Information',
+            style: TextStyle(fontSize: 24),
+          ),
+          // Add your custom WiFi content here
+        ],
+      ),
+    );
+  }
+}
+
+class HomePageWithoutWiFi extends StatelessWidget {
+  const HomePageWithoutWiFi({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'You are not connected to a WiFi network.',
+            style: TextStyle(fontSize: 24),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AppSettings.openWIFISettings();
+            },
+            child: Text('Open WiFi Settings'),
           ),
         ],
       ),
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wifi_shield/main.dart';
-import 'settings.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
