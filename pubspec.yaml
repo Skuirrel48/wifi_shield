@@ -40,6 +40,14 @@ dependencies:
   connectivity_plus: ^4.0.1
   network_info_plus: ^4.0.1
   restart_app: ^1.2.1
+  dart_ping: ^8.0.1
+  network_tools: ^3.2.1
+  fluttertoast: ^8.2.2
+  permission_handler: ^10.4.3
+  flutter_local_notifications: ^15.1.1
+  flutter_foreground_task: ^6.1.1
+  flutter_background_service: ^5.0.1
+  mysql_client: ^0.0.27
 
 dev_dependencies:
   flutter_test:

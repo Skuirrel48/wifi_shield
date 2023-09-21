@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'homepageWithWifi.screen.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
@@ -19,13 +20,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
     });
     switch (_selectedIndex) {
       case 0:
-        Navigator.of(context).pushNamed('/home');
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            maintainState: false,
+            builder: (BuildContext context) => HomePageWithWiFi(),
+          ),
+        );
         break;
       case 1:
-        Navigator.of(context).pushNamed('/wifi-info');
-        break;
-      case 2:
-        Navigator.of(context).pushNamed('/settings');
+        Navigator.of(context).pop();
         break;
     }
   }
@@ -38,25 +41,19 @@ class _BottomNavbarState extends State<BottomNavbar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.house,
+              FontAwesomeIcons.arrowsRotate,
             ),
-            label: 'Home',
+            label: 'Refresh',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.wifi,
+              FontAwesomeIcons.minimize,
             ),
-            label: 'Wi-Fi Info',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.gear,
-            ),
-            label: 'Settings',
+            label: 'Minimize',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 37, 109, 133),
+        selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),

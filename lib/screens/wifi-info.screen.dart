@@ -184,55 +184,6 @@ class _WifiInfoState extends State<WifiInfo> {
                     ],
                   ),
                 ),
-                Divider(
-                  color: Colors.white,
-                  thickness: 2,
-                  indent: 45,
-                  endIndent: 45,
-                ),
-                Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(50, 50, 50, 50),
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(223, 246, 255, 0.19),
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Devices Information',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        '<> online devices',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        '<> offline',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             );
           }

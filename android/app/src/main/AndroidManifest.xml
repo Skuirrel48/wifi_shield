@@ -1,9 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wifi_shield">
+    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION " />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION " />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
    <application
         android:label="wifi_shield"
-        android:name="${applicationName}"
+        android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher">
+        <!-- <service android:name=".MyService" android:exported="true" android:enabled="true"/> -->
+        <service android:name=".WarningNotificationService" android:exported="true" android:enabled="true"/>
+        <service android:name=".CriticalNotificationService" android:exported="true" android:enabled="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
